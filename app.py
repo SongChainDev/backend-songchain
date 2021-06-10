@@ -12,10 +12,9 @@ def listen_ping():
 @app.route("/authenticate", methods=["POST"])
 def listen_authenticate():
     tok = request.form.get("token")
-    r = requests.get(xooa + "ENDPOINT", headers={"Bearer": tok})
-    print(r.text)
-    print(r.json())
-    return "found" in r.lower()
+    r = requests.get(xooa + "identities/me", headers={"Authorization": "Bearer " + tok})
+    name = r.json()["IdentityName"]
+    return f"Hello {name}!\n"
 
 if __name__ == "__main__":
     app.run()
