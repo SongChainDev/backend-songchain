@@ -29,5 +29,13 @@ def listen_mytokens():
     r = requests.get(xooa + "erc721/me/tokens", headers={"Authorization": "Bearer " + tok})
     return r.json()
 
+@app.route("/alltokens", methods=["POST"])
+def listen_alltokens():
+    tok = keyring.get_password("backend", "apitoken")
+    if not tok:
+        return "Request failed. Please authenticate first."
+    r = requests.get(xooa + "erc721/tokens", headers={"Authorization": "Bearer " + tok})
+    return r.json()
+
 if __name__ == "__main__":
     app.run()
