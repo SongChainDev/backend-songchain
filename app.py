@@ -14,7 +14,7 @@ def listen_ping():
 def listen_authenticate():
     tok = request.form.get("token")
     r = requests.get(xooa + "identities/me", headers={"Authorization": "Bearer " + tok})
-    if "unauthorized" in r.text:
+    if "unauthorized" in r.text.lower():
         return "Authentication failed\n"
 
     name = r.json()["IdentityName"]
